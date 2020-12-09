@@ -1,0 +1,44 @@
+To index Dexe.Network user wallet-copying data
+
+#User wallet data
+type user @entity {
+  id: ID!
+  address: String!
+  txCount: BigInt!
+}
+
+#Token data tracked from Uniswap
+type Token @entity {
+  id: ID!
+  symbol: String!
+  name: String!
+  decimals: Bigint!
+}
+
+#Wallet copying orders from the user
+type userRequests @entity {
+  id: ID!
+  owner: user!
+  address: String!
+  token: Token!
+  amount: BigInt!
+  usdValue: BigInt!
+  #If assets exchanged by user are different or the same as copied wallet
+  direction: String!
+  #Volume achieved
+  volume: BigDecimal!
+  #Is the order successful, pending or cancelled
+  status: String!
+  #If the user has a current order open
+  currentRequest: Boolean!
+}
+
+
+#Copied wallet data
+type copiedWallet @entity {
+  id: ID!
+  address: String!
+  token: Token!
+  balance: BigInt!
+  usdValue: BigInt!
+}
